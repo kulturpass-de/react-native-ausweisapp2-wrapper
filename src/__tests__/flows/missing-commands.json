@@ -1,0 +1,177 @@
+[
+  {
+    "command": { "cmd": "GET_INFO" },
+    "messages": [
+      {
+        "msg": "INFO",
+        "VersionInfo": {
+          "Name": "AusweisApp2",
+          "Implementation-Title": "AusweisApp2",
+          "Implementation-Vendor": "Governikus GmbH & Co. KG",
+          "Implementation-Version": "1.10.0",
+          "Specification-Title": "TR-03124",
+          "Specification-Vendor": "Federal Office for Information Security",
+          "Specification-Version": "1.2"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "GET_STATUS" },
+    "messages": [
+      {
+        "msg": "STATUS",
+        "workflow": "AUTH",
+        "progress": 25,
+        "state": "ACCESS_RIGHTS"
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "GET_API_LEVEL" },
+    "messages": [
+      {
+        "msg": "API_LEVEL",
+        "error": "optional error message like an invalid level",
+        "available": [1, 2, 3, 4],
+        "current": 4
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_API_LEVEL", "level": 4 },
+    "messages": [
+      {
+        "msg": "API_LEVEL",
+        "error": "optional error message like an invalid level",
+        "available": [1, 2, 3, 4],
+        "current": 4
+      }
+    ]
+  },
+  {
+    "command": {
+      "cmd": "GET_READER",
+      "name": "NFC"
+    },
+    "messages": [
+      {
+        "msg": "READER",
+        "name": "NFC",
+        "insertable": false,
+        "attached": true,
+        "keypad": false,
+        "card": {
+          "inoperative": false,
+          "deactivated": false,
+          "retryCounter": 3
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "GET_READER_LIST" },
+    "messages": [
+      {
+        "msg": "READER_LIST",
+        "readers": [
+          {
+            "name": "Example reader 1 [SmartCard] (1234567) 01 00",
+            "insertable": false,
+            "attached": true,
+            "keypad": true,
+            "card": null
+          },
+
+          {
+            "name": "NFC",
+            "insertable": false,
+            "attached": true,
+            "keypad": false,
+            "card": {
+              "inoperative": false,
+              "deactivated": false,
+              "retryCounter": 3
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "GET_ACCESS_RIGHTS" },
+    "messages": [
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": [
+            "Address",
+            "FamilyName",
+            "GivenNames",
+            "AgeVerification"
+          ],
+          "optional": ["GivenNames", "AgeVerification"],
+          "required": ["Address", "FamilyName"]
+        }
+      }
+    ]
+  },
+  {
+    "command": {
+      "cmd": "SET_CARD",
+      "name": "Simulator",
+      "simulator": {
+        "files": [],
+        "keys": []
+      }
+    },
+    "messages": []
+  },
+  {
+    "command": { "cmd": "GET_CERTIFICATE" },
+    "messages": [
+      {
+        "msg": "CERTIFICATE",
+        "description": {
+          "issuerName": "Governikus Test DVCA",
+          "issuerUrl": "http://www.governikus.de",
+          "subjectName": "Governikus GmbH & Co. KG",
+          "subjectUrl": "https://test.governikus-eid.de",
+          "termsOfUsage": "Anschrift:\t\r\nGovernikus GmbH & Co. KG\r\nAm Fallturm 9\r\n28359 Bremen\t\r\n\r\nE-Mail-Adresse:\thb@bos-bremen.de\t\r\n\r\nZweck des Auslesevorgangs:\tDemonstration des eID-Service\t\r\n\r\nZuständige Datenschutzaufsicht:\t\r\nDie Landesbeauftragte für Datenschutz und Informationsfreiheit der Freien Hansestadt Bremen\r\nArndtstraße 1\r\n27570 Bremerhaven",
+          "purpose": "Demonstration des eID-Service"
+        },
+        "validity": {
+          "effectiveDate": "2016-07-31",
+          "expirationDate": "2016-08-30"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "INTERRUPT" },
+    "messages": []
+  },
+  {
+    "command": {
+      "cmd": "SET_PUK",
+      "value": "123456789"
+    },
+    "messages": [
+      {
+        "msg": "ENTER_PUK",
+        "error": "You must provide 10 digits",
+        "reader": {
+          "name": "NFC",
+          "insertable": false,
+          "attached": true,
+          "keypad": false,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 0
+          }
+        }
+      }
+    ]
+  }
+]

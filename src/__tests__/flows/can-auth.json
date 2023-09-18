@@ -1,0 +1,122 @@
+[
+  {
+    "command": {
+      "cmd": "RUN_AUTH",
+      "tcTokenURL": "https://test.governikus-eid.de/DEMO"
+    },
+    "messages": [
+      { "msg": "AUTH" },
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": ["DocumentType"],
+          "optional": [],
+          "required": ["DocumentType"]
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "ACCEPT" },
+    "messages": [
+      { "msg": "INSERT_CARD" },
+      {
+        "msg": "ENTER_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 3
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_PIN", "value": "000000" },
+    "messages": [
+      {
+        "msg": "ENTER_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 2
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_PIN", "value": "000001" },
+    "messages": [
+      {
+        "msg": "ENTER_CAN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 1
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_CAN", "value": "000000" },
+    "messages": [
+      {
+        "msg": "ENTER_CAN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 1
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_CAN", "value": "654321" },
+    "messages": [
+      {
+        "msg": "ENTER_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 1
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_PIN", "value": "123456" },
+    "messages": [
+      {
+        "msg": "AUTH",
+        "result": {
+          "major": "http://www.bsi.bund.de/ecard/api/1.1/resultmajor#ok"
+        },
+        "url": "https://test.governikus-eid.de/DEMO/?refID=123456"
+      }
+    ]
+  }
+]

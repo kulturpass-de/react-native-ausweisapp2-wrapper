@@ -1,0 +1,49 @@
+[
+  {
+    "command": {
+      "cmd": "RUN_AUTH",
+      "tcTokenURL": "https://test.governikus-eid.de/DEMO"
+    },
+    "messages": [
+      { "msg": "AUTH" },
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": ["FamilyName", "GivenNames", "DocumentType"],
+          "optional": ["GivenNames"],
+          "required": ["FamilyName", "DocumentType"]
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "ACCEPT" },
+    "messages": [
+      {
+        "msg": "ENTER_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 3
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_PIN", "value": "123456" },
+    "messages": [
+      {
+        "msg": "AUTH",
+        "result": {
+          "major": "http://www.bsi.bund.de/ecard/api/1.1/resultmajor#ok"
+        },
+        "url": "https://test.governikus-eid.de/DEMO/?refID=123456"
+      }
+    ]
+  }
+]

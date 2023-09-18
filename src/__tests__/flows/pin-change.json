@@ -1,0 +1,43 @@
+[
+  {
+    "command": { "cmd": "RUN_CHANGE_PIN" },
+    "messages": [
+      { "msg": "CHANGE_PIN" },
+      {
+        "msg": "ENTER_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 3
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_PIN", "value": "123456" },
+    "messages": [
+      {
+        "msg": "ENTER_NEW_PIN",
+        "reader": {
+          "attached": true,
+          "card": {
+            "inoperative": false,
+            "deactivated": false,
+            "retryCounter": 3
+          },
+          "keypad": false,
+          "name": "NFC"
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_NEW_PIN", "value": "123456" },
+    "messages": [{ "msg": "CHANGE_PIN", "success": true }]
+  }
+]

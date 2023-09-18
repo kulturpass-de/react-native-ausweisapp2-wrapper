@@ -1,0 +1,61 @@
+[
+  {
+    "command": {
+      "cmd": "RUN_AUTH",
+      "tcTokenURL": "https://test.governikus-eid.de/DEMO"
+    },
+    "messages": [
+      { "msg": "AUTH" },
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": ["FamilyName", "GivenNames", "DocumentType"],
+          "optional": ["GivenNames"],
+          "required": ["FamilyName", "DocumentType"]
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_ACCESS_RIGHTS", "chat": [] },
+    "messages": [
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": ["FamilyName", "DocumentType"],
+          "optional": ["GivenNames"],
+          "required": ["FamilyName", "DocumentType"]
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "SET_ACCESS_RIGHTS", "chat": ["GivenNames"] },
+    "messages": [
+      {
+        "msg": "ACCESS_RIGHTS",
+        "chat": {
+          "effective": ["FamilyName", "GivenNames", "DocumentType"],
+          "optional": ["GivenNames"],
+          "required": ["FamilyName", "DocumentType"]
+        }
+      }
+    ]
+  },
+  {
+    "command": { "cmd": "CANCEL" },
+    "messages": [
+      {
+        "msg": "AUTH",
+        "result": {
+          "description": "The process has been cancelled.",
+          "language": "en",
+          "major": "http://www.bsi.bund.de/ecard/api/1.1/resultmajor#error",
+          "message": "The process has been cancelled.",
+          "minor": "http://www.bsi.bund.de/ecard/api/1.1/resultminor/sal#cancellationByUser"
+        },
+        "url": "https://test.governikus-eid.de/DEMO/?errID=123456"
+      }
+    ]
+  }
+]
