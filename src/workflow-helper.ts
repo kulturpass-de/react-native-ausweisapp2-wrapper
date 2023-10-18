@@ -6,7 +6,7 @@ import { AusweisApp2SDKWrapper } from './ausweisapp2-sdk-wrapper';
 import { AA2CommandService } from './command-service';
 import { ErrorMessages, isCardDeactivated, isError } from './error-handling';
 import { logAA2Messages } from './logging';
-import type { InsertCard, Reader } from './types/messages';
+import type { InsertCard, Reader, Status } from './types/messages';
 import { AA2Messages } from './types/messages';
 
 class WorkflowHelper {
@@ -54,6 +54,33 @@ class WorkflowHelper {
       filter((msg): msg is InsertCard => msg.msg === AA2Messages.InsertCard)
     ).subscribe(handler);
   };
+
+  /**
+   * Attach handler to Reader Message containing a non-deactivated card. Used to act on inserted card.
+   * @param handler Handler callback
+   * @returns Subscription which has to be unsubscribed to remove handler
+   */
+    public handleInsertedCard = (
+      handler: (message: Reader) => void
+    ): Subscription => {
+      return AA2MessageObservable.pipe(
+        filter((msg): msg is Reader => msg.msg === AA2Messages.Reader && msg.card?.deactivated == false)
+      ).subscribe(handler);
+    };
+
+
+  /**
+   * Attach handler to Status Message containing Auth information. Used for monitoring auth progress.
+   * @param handler Handler callback
+   * @returns Subscription which has to be unsubscribed to remove handler
+   */
+      public handleAuthStatus = (
+        handler: (message: Status) => void
+      ): Subscription => {
+        return AA2MessageObservable.pipe(
+          filter((msg): msg is Status => msg.msg === AA2Messages.Status && msg.workflow == "AUTH")
+        ).subscribe(handler);
+      };
 
   /**
    * Attach handler for error handling. Handles BadState, InternalError, Invalid, UnknownCommand and errors in Auth, ChangePin as well as deactivated card Reader messages.
