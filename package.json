@@ -3,6 +3,7 @@
   "version": "1.1.8",
   "description": "React Native wrapper for the AusweisApp2 SDK by Governikus",
   "private": false,
+  "repository": "https://github.com/dlthub/react-native-ausweisapp2-wrapper",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
