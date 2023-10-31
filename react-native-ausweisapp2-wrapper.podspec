@@ -9,7 +9,8 @@ Pod::Spec.new do |s|
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
   s.license      = package["license"]
-  s.authors      = package["author"]
+  s.authors      = "DLTHUB"
+  s.source = { :git => 'https://github.com/dlthub/react-native-ausweisapp2-wrapper.git', :tag => 'v1.0.0' }
 
   s.platforms    = { :ios => "11.0" }
 
