@@ -63,6 +63,8 @@ android {
 ```
 See also https://www.ausweisapp.bund.de/sdk/android.html#app-bundle
 
+The current AA2 SDK supports only 64-bit devices. The AA2 SDK does not work with 32-bit devices like the Samsung A13. Using the SDK on these devices leads to the error `com.governikus.ausweisapp2.AidlBinder.resetValidSessionID`
+
 2. Add those lines to your android/app/src/main/AndroidManifest.xml:
 
 ```xml
@@ -144,6 +146,9 @@ async () {
 Optionally each command supports providing an options object as the last parameter that is used to configure the command. Currently only a milliseconds timeout is supported via `msTimeout`. This timeout is used for the maximum time that an async function waits for its Message response. If no Message response is provided in that time, a `TimeoutError` is thrown.
 
 For examples on how to a basic identification flow works, have a look at https://www.ausweisapp.bund.de/sdk/workflow.html
+
+Example of the wrapper usage you can find here:
+https://github.com/kulturpass-de/kulturpass-app/blob/main/src/features/eid-verification/services/eid-ausweisapp2-service.ts
 
 ## Support, Feedback, Contributing
 

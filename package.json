@@ -1,6 +1,6 @@
 {
   "name": "@sap/react-native-ausweisapp2-wrapper",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "React Native wrapper for the AusweisApp2 SDK by Governikus",
   "private": false,
   "main": "lib/commonjs/index",
@@ -9,6 +9,7 @@
   "react-native": "src/index",
   "source": "src/index",
   "homepage": "https://www.kulturpass.de/",
+  "author": "SAP SE or an SAP affiliate company and kulturpass-app contributors",
   "files": [
     "src",
     "lib",
@@ -41,6 +42,7 @@
     "ios",
     "android"
   ],
+  "repository": "https://github.com/kulturpass-de/react-native-ausweisapp2-wrapper",
   "dependencies": {
     "rxjs": "^7.8.1"
   },
