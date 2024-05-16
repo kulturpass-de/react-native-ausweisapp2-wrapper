@@ -5,6 +5,7 @@ import {
   CertificateDescription,
   CertificateValidity,
   FailureCodes,
+  InfoAusweisApp,
   ReaderData,
   VersionInfo,
   Workflow,
@@ -130,6 +131,7 @@ export type EnterPuk = {
 export type Info = {
   msg: AA2Messages.Info;
   VersionInfo: VersionInfo;
+  AusweisApp?: InfoAusweisApp;
 };
 
 /**

@@ -66,7 +66,7 @@ export enum AccessRight {
 export type AccessRightsAuxiliaryData = {
   // Optional required date of birth for AgeVerification as ISO 8601.
   ageVerificationDate?: string;
-  // Optional required age for AgeVerification. It is calculated by AusweisApp2 on the basis of ageVerificationDate and current date.
+  // Optional required age for AgeVerification. It is calculated by AusweisApp on the basis of ageVerificationDate and current date.
   requiredAge?: string;
   // Optional validity date as ISO 8601.
   validityDate?: string;
@@ -290,4 +290,16 @@ export enum FailureCodes {
   Establish_Pace_Ifd_Unknown = 'Establish_Pace_Ifd_Unknown',
   Enter_Pace_Password_Ifd_User_Cancelled = 'Enter_Pace_Password_Ifd_User_Cancelled',
   Enter_New_Pace_Pin_Ifd_User_Cancelled = 'Enter_New_Pace_Pin_Ifd_User_Cancelled',
+}
+
+/**
+ * Indicates the state of the connection to the AusweisApp for integrated SDK (Android only). The following states are possible.
+ * https://www.ausweisapp.bund.de/sdk/messages.html#info
+ */
+export enum InfoAusweisApp {
+  CONNECTED = 'CONNECTED',
+  DISCONNECTED = 'DISCONNECTED',
+  INVALID_CERTIFICATE = 'INVALID_CERTIFICATE',
+  INCOMPATIBLE_VERSION = 'INCOMPATIBLE_VERSION',
+  UNKNOWN = 'UNKNOWN',
 }

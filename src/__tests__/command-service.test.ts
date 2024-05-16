@@ -13,7 +13,11 @@ import {
   Invalid,
   Reader,
 } from '../types/messages';
-import { AccessRight, FailureCodes } from '../types/auxiliary_types';
+import {
+  AccessRight,
+  FailureCodes,
+  InfoAusweisApp,
+} from '../types/auxiliary_types';
 import { Observable } from 'rxjs';
 
 describe('AA2CommandService', () => {
@@ -246,6 +250,7 @@ describe('AA2CommandService', () => {
     const infoMsg = await AA2CommandService.getInfo();
     expect(infoMsg.msg).toBe(AA2Messages.Info);
     expect(infoMsg.VersionInfo.Name).toBe('AusweisApp2');
+    expect(infoMsg.AusweisApp).toBe(InfoAusweisApp.CONNECTED);
 
     const statusMsg = await AA2CommandService.getStatus();
     expect(statusMsg.msg).toBe(AA2Messages.Status);

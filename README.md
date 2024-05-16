@@ -22,14 +22,14 @@ KulturPass: react-native-ausweisapp2-wrapper
 
 ## About this project
 
-This library wraps and asyncifies the [AusweisApp2 SDK by Governikus](https://github.com/Governikus/AusweisApp2) and enables react-native apps to support eID verification of German documents with NFC. The communication with the SDK is done by sending ['Commands'](https://www.ausweisapp.bund.de/sdk/commands.html) and reacting to ['Messages'](https://www.ausweisapp.bund.de/sdk/messages.html). To orchestrate and simplify the API with the SDK through async functions, RxJS is used as a core driver of this library.
+This library wraps and asyncifies the [AusweisApp SDK by Governikus](https://github.com/Governikus/AusweisApp2) and enables react-native apps to support eID verification of German documents with NFC. The communication with the SDK is done by sending ['Commands'](https://www.ausweisapp.bund.de/sdk/commands.html) and reacting to ['Messages'](https://www.ausweisapp.bund.de/sdk/messages.html). To orchestrate and simplify the API with the SDK through async functions, RxJS is used as a core driver of this library.
 
 ## Requirements
 
 To use this library, at least the following requirements have to be fulfilled:
 
-- iOS 13.0
-- Android 7 and SDK version 24
+- iOS 14.0
+- Android 8 and SDK version 26
 
 ## Getting Started
 
@@ -56,7 +56,7 @@ android {
         // Fixes build error: 2 files found with path 'lib/arm64-v8a/libc++_shared.so'
         pickFirst "lib/arm64-v8a/libc++_shared.so"
         // Needed for aab (Android App Bundle) creation.
-        // The AusweisApp2 SDK will not work correctly without it
+        // The AusweisApp SDK will not work correctly without it
         // See also https://www.ausweisapp.bund.de/sdk/android.html#app-bundle
         jniLibs { useLegacyPackaging = true }
     }
@@ -84,7 +84,7 @@ See also https://developer.android.com/guide/topics/connectivity/nfc/nfc#manifes
 </array>
 
 <key>NFCReaderUsageDescription</key>
-<string>AusweisApp2 needs NFC to access the ID card.</string>
+<string>AusweisApp needs NFC to access the ID card.</string>
 ```
 See also https://www.ausweisapp.bund.de/sdk/ios.html#info-plist
 
@@ -132,7 +132,7 @@ async () {
   return info
 }
 ```
-In this case, we return the Info Message that will be sent as a reply by the AusweisApp2 SDK.
+In this case, we return the Info Message that will be sent as a reply by the AusweisApp SDK.
 
 Some Commands need additional data to be sent to the SDK. The data is always provided using parameters.
 
@@ -149,6 +149,10 @@ For examples on how to a basic identification flow works, have a look at https:/
 
 Example of the wrapper usage you can find here:
 https://github.com/kulturpass-de/kulturpass-app/blob/main/src/features/eid-verification/services/eid-ausweisapp2-service.ts
+
+### Deactivated Cards
+
+Deactivated cards are handled the same as error Messages. Commands such as `accept` on the `CommandService` will throw a `Reader` Message if a deactivated card is detected. To handle `Reader` Messages with deactivated cards asynchonously, use the `handleError` callback on the `WorkflowService` or filter Messages on the `AA2MessageObservable` itself.
 
 ## Support, Feedback, Contributing
 

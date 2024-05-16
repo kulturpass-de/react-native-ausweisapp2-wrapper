@@ -144,7 +144,7 @@ class Ausweisapp2WrapperModule(reactContext: ReactApplicationContext) :
   }
 
   /**
-   * Stop the AusweisApp2 SDK (Cancels all running Workflows) and stop NFC Tag foreground dispatch
+   * Stop the AusweisApp SDK (Cancels all running Workflows) and stop NFC Tag foreground dispatch
    */
   @ReactMethod
   fun stop() {
@@ -168,7 +168,7 @@ class Ausweisapp2WrapperModule(reactContext: ReactApplicationContext) :
   }
 
   /**
-   * Send a command to the AusweisApp2 SDK encoded as a JSON String
+   * Send a command to the AusweisApp SDK encoded as a JSON String
    */
   @ReactMethod
   fun send(command: String) {
@@ -184,7 +184,7 @@ class Ausweisapp2WrapperModule(reactContext: ReactApplicationContext) :
   }
 
   /**
-   * Return if AusweisApp2 SDK is running
+   * Return if AusweisApp SDK is running
    */
   @ReactMethod
   fun isRunning(promise: Promise) {

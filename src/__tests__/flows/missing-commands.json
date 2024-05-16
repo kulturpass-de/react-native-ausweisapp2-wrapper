@@ -12,7 +12,8 @@
           "Specification-Title": "TR-03124",
           "Specification-Vendor": "Federal Office for Information Security",
           "Specification-Version": "1.2"
-        }
+        },
+        "AusweisApp": "CONNECTED"
       }
     ]
   },

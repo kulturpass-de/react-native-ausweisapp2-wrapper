@@ -45,12 +45,12 @@ export type CommandServiceOptions = {
 
 export const AA2CommandService = {
   /**
-   * Start the AusweisApp2 SDK and start NFC on Android
+   * Start the AusweisApp SDK and start NFC on Android
    * @param {CommandServiceOptions} [options] General command service options
    */
   start: async (options?: CommandServiceOptions) => {
     if (await AusweisApp2SDKWrapper.isRunning()) {
-      console.warn('AusweisApp2SDK already started');
+      console.warn('AusweisApp SDK already started');
       return;
     }
 
@@ -64,12 +64,12 @@ export const AA2CommandService = {
     await connected;
   },
   /**
-   * Stop the AusweisApp2 SDK and stop NFC on Android
+   * Stop the AusweisApp SDK and stop NFC on Android
    * @param {CommandServiceOptions} [options] General command service options
    */
   stop: async (options?: CommandServiceOptions) => {
     if (!(await AusweisApp2SDKWrapper.isRunning())) {
-      console.warn('AusweisApp2SDK already stopped');
+      console.warn('AusweisApp SDK already stopped');
       return;
     }
 
@@ -83,13 +83,13 @@ export const AA2CommandService = {
     logAA2Messages(false);
   },
   /**
-   * Check if the AusweisApp2 SDK is already running
+   * Check if the AusweisApp SDK is already running
    */
   isRunning: (): Promise<boolean> => {
     return AusweisApp2SDKWrapper.isRunning();
   },
   /**
-   * Returns information about the current installation of AusweisApp2.
+   * Returns information about the current installation of AusweisApp.
    * https://www.ausweisapp.bund.de/sdk/commands.html#get-info
    * @returns Message {@link Info}
    * @param {CommandServiceOptions} [options] General command service options
@@ -97,7 +97,7 @@ export const AA2CommandService = {
   getInfo: (options?: CommandServiceOptions): Promise<Info> =>
     sendCommand(AA2Commands.GetInfo, [AA2Messages.Info], {}, options, true),
   /**
-   * Returns information about the current workflow and state of AusweisApp2.
+   * Returns information about the current workflow and state of AusweisApp.
    * https://www.ausweisapp.bund.de/sdk/commands.html#get-status
    * @param {CommandServiceOptions} [options] General command service options
    * @returns Message {@link Status}

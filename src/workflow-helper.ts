@@ -11,7 +11,7 @@ import { AA2Messages } from './types/messages';
 
 class WorkflowHelper {
   /**
-   * Start and initialize the AusweisApp2 SDK and set the API Level.
+   * Start and initialize the AusweisApp SDK and set the API Level.
    * @param logging Enable or disable message logging
    * @param apiLevel The API level to be set (see https://www.ausweisapp.bund.de/sdk/commands.html#set-api-level)
    * @param startTimeout Timeout for the SDK startup (Initializes NFC on Android and the SDK itself)

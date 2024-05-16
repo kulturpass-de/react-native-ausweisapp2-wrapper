@@ -13,10 +13,10 @@ const beautifyJson = (value: any) => JSON.stringify(value, undefined, 2);
 export const logAA2Messages = (toggle: boolean) => {
   if (toggle) {
     const msgStrObs = AA2MessageObservable.pipe(
-      map((msg) => `AusweisApp2 Message:\n${beautifyJson(msg)}`)
+      map((msg) => `AusweisApp Message:\n${beautifyJson(msg)}`)
     );
     const cmdStrObs = commandSubject.pipe(
-      map((cmd) => `AusweisApp2 Command:\n${beautifyJson(cmd)}`)
+      map((cmd) => `AusweisApp Command:\n${beautifyJson(cmd)}`)
     );
     const newLoggingSub = merge(msgStrObs, cmdStrObs).subscribe((value) => {
       if (loggingSub === newLoggingSub) {

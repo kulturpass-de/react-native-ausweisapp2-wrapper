@@ -22,7 +22,7 @@ import { loggingSub } from './logging';
 export const commandSubject = new Subject<Commands>();
 
 /**
- * Send a Command to the AusweisApp2 SDK without waiting for a Message response.
+ * Send a Command to the AusweisApp SDK without waiting for a Message response.
  * @param command The Command string, to be sent to the SDK
  * @param args Arguments provided alongside the Command
  */
@@ -46,7 +46,7 @@ export const sendCommandWithoutResult = <
 export const DEFAULT_TIMEOUT = 40000; /* 40 seconds */
 
 /**
- * Sends a Command to the AusweisApp2 SDK and resolves asynchronously with a Message response.
+ * Sends a Command to the AusweisApp SDK and resolves asynchronously with a Message response.
  * @param command The Command string, to be sent to the SDK
  * @param expectedMessages The expected Messages that are valid responses to the Command
  * @param args Arguments provided alongside the Command
