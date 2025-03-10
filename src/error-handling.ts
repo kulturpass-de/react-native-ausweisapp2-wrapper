@@ -45,7 +45,25 @@ export const isChangePinError = (msg: Messages): msg is ChangePin => {
  * Check if the Message is a Reader Message with the deactivated property set to true on the attached Card.
  */
 export const isCardDeactivated = (msg: Messages): msg is Reader => {
-  return msg.msg === AA2Messages.Reader && msg.card?.deactivated === true;
+  return (
+    msg.msg === AA2Messages.Reader &&
+    msg.card !== null &&
+    'deactivated' in msg.card &&
+    msg.card.deactivated === true
+  );
+};
+
+/**
+ * Check if the Message is a Reader Message with an unknown card.
+ * The card is unknown if the card object is empty. (Only API Level 3 or higher)
+ * See https://www.ausweisapp.bund.de/sdk/messages.html#reader
+ */
+export const isCardUnknown = (msg: Messages): msg is Reader => {
+  return (
+    msg.msg === AA2Messages.Reader &&
+    msg.card !== null &&
+    !('deactivated' in msg.card)
+  );
 };
 
 /**

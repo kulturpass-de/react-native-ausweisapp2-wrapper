@@ -12,6 +12,7 @@ export enum AA2Commands {
   GetAccessRights = 'GET_ACCESS_RIGHTS',
   SetAccessRights = 'SET_ACCESS_RIGHTS',
   SetCard = 'SET_CARD',
+  Continue = 'CONTINUE',
   GetCertificate = 'GET_CERTIFICATE',
   Cancel = 'CANCEL',
   Accept = 'ACCEPT',
@@ -113,6 +114,14 @@ export type SetCard = {
 };
 
 /**
+ * https://www.ausweisapp.bund.de/sdk/commands.html#continue
+ * (Only API Level 3 or higher)
+ */
+export type Continue = {
+  cmd: AA2Commands.Continue;
+};
+
+/**
  * https://www.ausweisapp.bund.de/sdk/commands.html#get-certificate
  */
 export type GetCertificate = {
@@ -191,6 +200,7 @@ export type Commands =
   | SetPin
   | SetNewPin
   | SetCan
-  | SetPuk;
+  | SetPuk
+  | Continue;
 
 export type Command<A extends AA2Commands> = { cmd: A } & Commands;

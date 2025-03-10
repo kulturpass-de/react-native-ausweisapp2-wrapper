@@ -6,9 +6,10 @@ import {
   ChangePin,
   InsertCard,
   Invalid,
+  Pause,
   Reader,
 } from '../types/messages';
-import { FailureCodes } from '../types/auxiliary_types';
+import { FailureCodes, PauseCauses } from '../types/auxiliary_types';
 import { CommandMessageList } from '../__mocks__/ausweisapp2-sdk-wrapper';
 import { Platform } from 'react-native';
 
@@ -103,6 +104,40 @@ describe('AA2WorkflowHelper', () => {
 
       expect(mockedHandler.mock.calls.length).toBe(1);
       expect(mockedHandler.mock.calls[0][0]).toEqual(insertCardMsg);
+
+      sub.unsubscribe();
+      await AA2CommandService.stop();
+    });
+  });
+
+  describe('handlePause', () => {
+    test('should call handler', async () => {
+      const pauseMsg: Pause = {
+        msg: AA2Messages.Pause,
+        cause: PauseCauses.BadCardPosition,
+      };
+      const commandMessageList: CommandMessageList = [
+        {
+          command: { cmd: AA2Commands.Accept },
+          messages: [pauseMsg, { msg: AA2Messages.EnterPin }],
+        },
+      ];
+      setupAA2SDKMock(commandMessageList);
+
+      const { AA2WorkflowHelper } = require('../workflow-helper');
+      const { AA2CommandService } = require('../command-service');
+      await AA2CommandService.start();
+
+      const mockedHandler = jest.fn();
+
+      const sub = AA2WorkflowHelper.handlePause(mockedHandler);
+
+      expect(mockedHandler.mock.calls.length).toBe(0);
+
+      await AA2CommandService.accept();
+
+      expect(mockedHandler.mock.calls.length).toBe(1);
+      expect(mockedHandler.mock.calls[0][0]).toEqual(pauseMsg);
 
       sub.unsubscribe();
       await AA2CommandService.stop();

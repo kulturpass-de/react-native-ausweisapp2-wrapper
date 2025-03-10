@@ -288,6 +288,8 @@ describe('AA2CommandService', () => {
     expect(enterPukMsg.msg).toBe(AA2Messages.EnterPuk);
     expect(enterPukMsg.error).toBe('You must provide 10 digits');
 
+    AA2CommandService.continue();
+
     await AA2CommandService.stop();
   });
 

@@ -114,7 +114,8 @@ export type ReaderData = {
   // Indicates whether a card reader has a keypad. The parameter is only shown when a reader is attached.
   keypad: boolean;
   // Provides information about inserted card, otherwise null.
-  card: Card | null;
+  // Is an empty object if the card is unknown. (Only API Level 3 or higher)
+  card: Card | null | {};
 };
 
 /**
@@ -159,6 +160,10 @@ export type Simulator = {
    */
   keys: Array<{
     id: number;
+    content: string;
+    /**
+     * @deprecated Parameter private in keys will be removed in 2.3.0.
+     */
     private: string;
   }>;
 };
@@ -302,4 +307,12 @@ export enum InfoAusweisApp {
   INVALID_CERTIFICATE = 'INVALID_CERTIFICATE',
   INCOMPATIBLE_VERSION = 'INCOMPATIBLE_VERSION',
   UNKNOWN = 'UNKNOWN',
+}
+
+/**
+ * The cause of a pause in the workflow. (Only API Level 3 or higher)
+ * https://www.ausweisapp.bund.de/sdk/messages.html#pause-cause
+ */
+export enum PauseCauses {
+  BadCardPosition = 'BadCardPosition',
 }

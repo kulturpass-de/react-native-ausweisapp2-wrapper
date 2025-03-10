@@ -174,5 +174,11 @@
         }
       }
     ]
+  },
+  {
+    "command": {
+      "cmd": "CONTINUE"
+    },
+    "messages": []
   }
 ]

@@ -6,6 +6,7 @@ import {
   CertificateValidity,
   FailureCodes,
   InfoAusweisApp,
+  PauseCauses,
   ReaderData,
   VersionInfo,
   Workflow,
@@ -30,6 +31,7 @@ export enum AA2Messages {
   Info = 'INFO',
   ReaderList = 'READER_LIST',
   ApiLevel = 'API_LEVEL',
+  Pause = 'PAUSE',
 }
 
 /**
@@ -184,6 +186,15 @@ export type Status = {
 };
 
 /**
+ * https://www.ausweisapp.bund.de/sdk/messages.html#pause
+ * (Only API Level 3 or higher)
+ */
+export type Pause = {
+  msg: AA2Messages.Pause;
+  cause: PauseCauses;
+};
+
+/**
  * https://www.ausweisapp.bund.de/sdk/messages.html#unknown-command
  */
 export type UnknownCommand = {
@@ -209,6 +220,7 @@ export type Messages =
   | Status
   | Info
   | ReaderList
-  | ApiLevel;
+  | ApiLevel
+  | Pause;
 
 export type Message<A extends AA2Messages> = { msg: A } & Messages;

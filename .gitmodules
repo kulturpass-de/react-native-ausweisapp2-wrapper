@@ -1,4 +1,4 @@
 [submodule "ios/Frameworks/AusweisApp2-SDK-iOS"]
 	path = ios/Frameworks/AusweisApp2-SDK-iOS
 	url = https://github.com/Governikus/AusweisApp2-SDK-iOS
-	branch = 2.2.1
+	branch = 2.2.2

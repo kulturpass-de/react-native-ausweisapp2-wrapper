@@ -6,7 +6,7 @@ import { AusweisApp2SDKWrapper } from './ausweisapp2-sdk-wrapper';
 import { AA2CommandService } from './command-service';
 import { ErrorMessages, isCardDeactivated, isError } from './error-handling';
 import { logAA2Messages } from './logging';
-import type { InsertCard, Reader } from './types/messages';
+import type { InsertCard, Pause, Reader } from './types/messages';
 import { AA2Messages } from './types/messages';
 
 class WorkflowHelper {
@@ -43,7 +43,7 @@ class WorkflowHelper {
   };
 
   /**
-   * Attach handler to InsertCard Message. Mostly used for simulating a card.
+   * Attach handler to InsertCard Messages. Mostly used for simulating a card.
    * @param handler Handler callback
    * @returns Subscription which has to be unsubscribed to remove handler
    */
@@ -52,6 +52,18 @@ class WorkflowHelper {
   ): Subscription => {
     return AA2MessageObservable.pipe(
       filter((msg): msg is InsertCard => msg.msg === AA2Messages.InsertCard)
+    ).subscribe(handler);
+  };
+
+  /**
+   * Attach handler to Pause Messages. The Continue command must send to resume the workflow.
+   * (Only API Level 3 or higher)
+   * @param handler Handler callback
+   * @returns Subscription which has to be unsubscribed to remove handler
+   */
+  public handlePause = (handler: (message: Pause) => void): Subscription => {
+    return AA2MessageObservable.pipe(
+      filter((msg): msg is Pause => msg.msg === AA2Messages.Pause)
     ).subscribe(handler);
   };
 
@@ -102,7 +114,7 @@ class WorkflowHelper {
 
   /**
    * Open NFC Settings. Only available on Android.
-   * @throws if error occured while opening NFC settings
+   * @throws if error occurred while opening NFC settings
    */
   public openNfcSettings = async () => {
     if (Platform.OS !== 'android') {

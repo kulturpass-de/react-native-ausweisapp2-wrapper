@@ -217,4 +217,75 @@ describe('Error Handling', () => {
 
     expect(isCardDeactivated(otherMessage)).toBe(false);
   });
+
+  test('isCardUnknown', () => {
+    const isCardUnknown = require('../error-handling').isCardUnknown;
+
+    const unknownCard: Reader = {
+      attached: true,
+      card: {},
+      insertable: false,
+      keypad: false,
+      msg: AA2Messages.Reader,
+      name: 'NFC',
+    };
+
+    expect(isCardUnknown(unknownCard)).toBe(true);
+
+    const activeCard: Reader = {
+      attached: true,
+      card: {
+        deactivated: false,
+        inoperative: false,
+        retryCounter: 3,
+      },
+      insertable: false,
+      keypad: false,
+      msg: AA2Messages.Reader,
+      name: 'NFC',
+    };
+
+    expect(isCardUnknown(activeCard)).toBe(false);
+
+    const inactiveCard: Reader = {
+      attached: true,
+      card: {
+        deactivated: true,
+        inoperative: false,
+        retryCounter: 0,
+      },
+      insertable: false,
+      keypad: false,
+      msg: AA2Messages.Reader,
+      name: 'NFC',
+    };
+    expect(isCardUnknown(inactiveCard)).toBe(false);
+
+    const noCard: Reader = {
+      attached: true,
+      card: null,
+      insertable: true,
+      keypad: true,
+      msg: AA2Messages.Reader,
+      name: 'Simulator',
+    };
+    expect(isCardUnknown(noCard)).toBe(false);
+
+    const otherMessage: Messages = {
+      msg: AA2Messages.EnterPin,
+      reader: {
+        attached: true,
+        card: {
+          inoperative: false,
+          deactivated: false,
+          retryCounter: 3,
+        },
+        insertable: true,
+        keypad: false,
+        name: 'NFC',
+      },
+    };
+
+    expect(isCardUnknown(otherMessage)).toBe(false);
+  });
 });

@@ -390,4 +390,13 @@ export const AA2CommandService = {
       false,
       throwAA2CardDeactivatedErrorOperator
     ),
+  /**
+   * Continues the workflow after a PAUSE was sent.
+   *
+   * The AusweisApp will send a PAUSE message with an appropriate cause for the waiting condition.
+   * After the issue was fixed you have to send CONTINUE to go on with the workflow.
+   * https://www.ausweisapp.bund.de/sdk/commands.html#continue
+   * (Only API Level 3 or higher)
+   */
+  continue: (): void => sendCommandWithoutResult(AA2Commands.Continue, {}),
 };
