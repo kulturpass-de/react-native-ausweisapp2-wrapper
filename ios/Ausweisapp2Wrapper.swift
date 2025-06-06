@@ -1,4 +1,4 @@
-import AusweisApp2
+import AusweisApp
 import Foundation
 
 @objc(Ausweisapp2Wrapper)
@@ -11,9 +11,9 @@ class Ausweisapp2Wrapper: RCTEventEmitter {
   }
 
   /**
-   * Callback that handles Messages sent by the AusweisApp2 SDK
+   * Callback that handles Messages sent by the AusweisApp SDK
    */
-  private var aa2Callback: AusweisApp2Callback = { (msg: UnsafePointer<CChar>?) in
+  private var aaCallback: AusweisAppCallback = { (msg: UnsafePointer<CChar>?) in
     guard let msg: UnsafePointer<CChar> = msg else {
       Ausweisapp2Wrapper.shared?.sendEvent(withName: "connected", body: nil)
       return
@@ -24,40 +24,42 @@ class Ausweisapp2Wrapper: RCTEventEmitter {
   }
 
   /**
-   * Initialize the AusweisApp2 SDK
+   * Initialize the AusweisApp SDK
    */
   @objc func start() {
-    if !ausweisapp2_init(aa2Callback, nil) {
+    if !ausweisapp_init(aaCallback, nil) {
       Ausweisapp2Wrapper.shared?.sendEvent(withName: "error", body: nil)
     }
   }
 
   /**
-   * Stop the AusweisApp2 SDK (Cancels all running Workflows)
+   * Stop the AusweisApp SDK (Cancels all running Workflows)
    */
   @objc func stop() {
-    ausweisapp2_shutdown()
+    ausweisapp_shutdown()
     Ausweisapp2Wrapper.shared?.sendEvent(withName: "disconnected", body: nil)
   }
 
   /**
-   * Send a command to the AusweisApp2 SDK encoded as a JSON String
+   * Send a command to the AusweisApp SDK encoded as a JSON String
    */
   @objc func send(_ command: String) {
-    ausweisapp2_send(command)
+    ausweisapp_send(command)
   }
 
   /**
-   * Return if AusweisApp2 SDK is running
+   * Return if AusweisApp SDK is running
    */
-    @objc func isRunning(_ resolve: @escaping RCTPromiseResolveBlock,
-                         rejecter reject: @escaping RCTPromiseRejectBlock ) {
-    resolve(ausweisapp2_is_running())
+  @objc func isRunning(
+    _ resolve: @escaping RCTPromiseResolveBlock,
+    rejecter reject: @escaping RCTPromiseRejectBlock
+  ) {
+    resolve(ausweisapp_is_running())
   }
 
-    override func invalidate() {
-        stop()
-    }
+  override func invalidate() {
+    stop()
+  }
 
   /**
    * Supported event types by the NativeEventEmitter

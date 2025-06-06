@@ -1,6 +1,6 @@
 {
   "name": "@sap/react-native-ausweisapp2-wrapper",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "React Native wrapper for the AusweisApp SDK by Governikus",
   "private": false,
   "main": "lib/commonjs/index",
@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
     "prepack": "bob build",
-    "postinstall": "project_dir=$PWD; echo \"Notice: Updating AusweisApp SDK git module\"; path=\"ios/Frameworks/AusweisApp2-SDK-iOS\"; url=\"https://github.com/Governikus/AusweisApp2-SDK-iOS\"; if [[ -d \"${path}/.git\" ]]; then echo \"Notice: git pull submodule $(realpath ${path})\"; cd \"${path}\"; git pull; else rm -r \"${path}\"; git -c advice.detachedHead=false clone --depth 1 $url $path --branch 2.2.2 --single-branch; fi; cd \"${project_dir}\""
+    "postinstall": "project_dir=$PWD; echo \"Notice: Updating AusweisApp SDK git module\"; path=\"ios/Frameworks/AusweisApp2-SDK-iOS\"; url=\"https://github.com/Governikus/AusweisApp2-SDK-iOS\"; if [[ -d \"${path}/.git\" ]]; then echo \"Notice: git pull submodule $(realpath ${path})\"; cd \"${path}\"; git pull; else rm -r \"${path}\"; git -c advice.detachedHead=false clone --depth 1 $url $path --branch 2.3.0 --single-branch; fi; cd \"${project_dir}\""
   },
   "keywords": [
     "react-native",

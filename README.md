@@ -28,8 +28,8 @@ This library wraps and asyncifies the [AusweisApp SDK by Governikus](https://git
 
 To use this library, at least the following requirements have to be fulfilled:
 
-- iOS 14.0
-- Android 8 and SDK version 26
+- iOS 16.0
+- Android 9 and SDK version 28
 
 ## Getting Started
 
