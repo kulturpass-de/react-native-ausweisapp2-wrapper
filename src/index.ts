@@ -38,6 +38,12 @@ export {
 } from './types/auxiliary_types';
 export { AA2MessageObservable } from './ausweisapp2-message-event-observables';
 export { logAA2Messages } from './logging';
-export { isError, isAuthError, isChangePinError } from './error-handling';
+export {
+  isError,
+  isAuthError,
+  isChangePinError,
+  isCardDeactivated,
+  isTimeoutError,
+} from './error-handling';
 export { AA2WorkflowHelper } from './workflow-helper';
 export { TimeoutError } from 'rxjs';

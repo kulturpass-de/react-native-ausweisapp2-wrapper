@@ -4,7 +4,11 @@ import { Subscription, filter } from 'rxjs';
 import { AA2MessageObservable } from './ausweisapp2-message-event-observables';
 import { AusweisApp2SDKWrapper } from './ausweisapp2-sdk-wrapper';
 import { AA2CommandService } from './command-service';
-import { ErrorMessages, isCardDeactivated, isError } from './error-handling';
+import {
+  ErrorMessages,
+  isError,
+  isReaderMessageWithDeactivatedCard,
+} from './error-handling';
 import { logAA2Messages } from './logging';
 import type { InsertCard, Pause, Reader } from './types/messages';
 import { AA2Messages } from './types/messages';
@@ -78,7 +82,7 @@ class WorkflowHelper {
     return AA2MessageObservable.pipe(
       filter(
         (msg): msg is ErrorMessages | Reader =>
-          isError(msg) || isCardDeactivated(msg)
+          isError(msg) || isReaderMessageWithDeactivatedCard(msg)
       )
     ).subscribe(handler);
   };

@@ -1,4 +1,4 @@
-import { map } from 'rxjs';
+import { map, TimeoutError } from 'rxjs';
 
 import { AA2ErrorObservable } from './ausweisapp2-message-event-observables';
 import {
@@ -12,6 +12,7 @@ import {
   Reader,
   UnknownCommand,
 } from './types/messages';
+import { Card } from 'react-native-ausweisapp2-wrapper';
 
 export const BASIC_ERROR_MESSAGES = [
   AA2Messages.BadState,
@@ -42,15 +43,19 @@ export const isChangePinError = (msg: Messages): msg is ChangePin => {
 };
 
 /**
+ * Check if the Card is deactivated.
+ */
+export const isCardDeactivated = (card: {} | Card | null): boolean => {
+  return card !== null && 'deactivated' in card && card.deactivated === true;
+};
+
+/**
  * Check if the Message is a Reader Message with the deactivated property set to true on the attached Card.
  */
-export const isCardDeactivated = (msg: Messages): msg is Reader => {
-  return (
-    msg.msg === AA2Messages.Reader &&
-    msg.card !== null &&
-    'deactivated' in msg.card &&
-    msg.card.deactivated === true
-  );
+export const isReaderMessageWithDeactivatedCard = (
+  msg: Messages
+): msg is Reader => {
+  return msg.msg === AA2Messages.Reader && isCardDeactivated(msg.card);
 };
 
 /**
@@ -64,6 +69,14 @@ export const isCardUnknown = (msg: Messages): msg is Reader => {
     msg.card !== null &&
     !('deactivated' in msg.card)
   );
+};
+
+/**
+ * Check if the error is a TimeoutError.
+ * This is used to handle timeouts in the RxJS pipeline.
+ */
+export const isTimeoutError = (error: unknown): boolean => {
+  return error instanceof TimeoutError;
 };
 
 /**
@@ -115,7 +128,7 @@ export const throwAA2BasicErrorsOperator = map((msg: Messages): Messages => {
  */
 export const throwAA2CardDeactivatedErrorOperator = map(
   (msg: Messages): Messages => {
-    if (isCardDeactivated(msg)) {
+    if (isReaderMessageWithDeactivatedCard(msg)) {
       throw msg;
     }
     return msg;

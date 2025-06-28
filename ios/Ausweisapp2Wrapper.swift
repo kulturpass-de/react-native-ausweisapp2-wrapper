@@ -1,4 +1,4 @@
-import AusweisApp
+import AusweisApp2
 import Foundation
 
 @objc(Ausweisapp2Wrapper)

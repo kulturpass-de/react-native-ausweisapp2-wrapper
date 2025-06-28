@@ -1,4 +1,4 @@
-import { FailureCodes } from '../types/auxiliary_types';
+import { Card, FailureCodes } from '../types/auxiliary_types';
 import {
   AA2Messages,
   Auth,
@@ -11,6 +11,7 @@ import {
   UnknownCommand,
 } from '../types/messages';
 import { setupAA2SDKMock } from './utils/mocked-ausweisapp2-sdk';
+import { TimeoutError } from 'rxjs';
 
 describe('Error Handling', () => {
   beforeAll(() => {
@@ -158,7 +159,7 @@ describe('Error Handling', () => {
     expect(isBasicError(otherMessage)).toBe(false);
   });
 
-  test('isCardDeactivated', () => {
+  test('isReaderMessageWithDeactivatedCard', () => {
     const activeCard: Reader = {
       attached: true,
       card: {
@@ -172,9 +173,10 @@ describe('Error Handling', () => {
       name: 'NFC',
     };
 
-    const isCardDeactivated = require('../error-handling').isCardDeactivated;
+    const isReaderMessageWithDeactivatedCard =
+      require('../error-handling').isReaderMessageWithDeactivatedCard;
 
-    expect(isCardDeactivated(activeCard)).toBe(false);
+    expect(isReaderMessageWithDeactivatedCard(activeCard)).toBe(false);
 
     const inactiveCard: Reader = {
       attached: true,
@@ -188,7 +190,7 @@ describe('Error Handling', () => {
       msg: AA2Messages.Reader,
       name: 'NFC',
     };
-    expect(isCardDeactivated(inactiveCard)).toBe(true);
+    expect(isReaderMessageWithDeactivatedCard(inactiveCard)).toBe(true);
 
     const noCard: Reader = {
       attached: true,
@@ -198,7 +200,17 @@ describe('Error Handling', () => {
       msg: AA2Messages.Reader,
       name: 'Simulator',
     };
-    expect(isCardDeactivated(noCard)).toBe(false);
+    expect(isReaderMessageWithDeactivatedCard(noCard)).toBe(false);
+
+    const unknownCard: Reader = {
+      attached: true,
+      card: {},
+      insertable: true,
+      keypad: true,
+      msg: AA2Messages.Reader,
+      name: 'Simulator',
+    };
+    expect(isReaderMessageWithDeactivatedCard(unknownCard)).toBe(false);
 
     const otherMessage: Messages = {
       msg: AA2Messages.EnterPin,
@@ -215,7 +227,33 @@ describe('Error Handling', () => {
       },
     };
 
-    expect(isCardDeactivated(otherMessage)).toBe(false);
+    expect(isReaderMessageWithDeactivatedCard(otherMessage)).toBe(false);
+  });
+
+  test('isCardDeactivated', () => {
+    const activeCard: Card = {
+      deactivated: false,
+      inoperative: false,
+      retryCounter: 3,
+    };
+    const isCardDeactivated = require('../error-handling').isCardDeactivated;
+
+    expect(isCardDeactivated(activeCard)).toBe(false);
+
+    const inactiveCard: Card = {
+      deactivated: true,
+      inoperative: false,
+      retryCounter: 0,
+    };
+
+    expect(isCardDeactivated(inactiveCard)).toBe(true);
+
+    const noCard = null;
+    expect(isCardDeactivated(noCard)).toBe(false);
+
+    const unknownCard: {} = {};
+
+    expect(isCardDeactivated(unknownCard)).toBe(false);
   });
 
   test('isCardUnknown', () => {
@@ -287,5 +325,15 @@ describe('Error Handling', () => {
     };
 
     expect(isCardUnknown(otherMessage)).toBe(false);
+  });
+
+  test('isTimeoutError', () => {
+    const isTimeoutError = require('../error-handling').isTimeoutError;
+
+    const timeoutError = new TimeoutError();
+    expect(isTimeoutError(timeoutError)).toBe(true);
+
+    const genericError = new Error('Generic error');
+    expect(isTimeoutError(genericError)).toBe(false);
   });
 });
