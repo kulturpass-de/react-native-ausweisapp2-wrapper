@@ -46,7 +46,11 @@ export const isChangePinError = (msg: Messages): msg is ChangePin => {
  * Check if the Card is deactivated.
  */
 export const isCardDeactivated = (card: {} | Card | null): boolean => {
-  return card !== null && 'deactivated' in card && card.deactivated === true;
+  return  (
+    card !== null &&
+    typeof card === 'object' &&
+    'deactivated' in card && 
+    card.deactivated === true); 
 };
 
 /**
