@@ -161,10 +161,6 @@ export type Simulator = {
   keys: Array<{
     id: number;
     content: string;
-    /**
-     * @deprecated Parameter private in keys will be removed in 2.3.0.
-     */
-    private: string;
   }>;
 };
 

@@ -12,7 +12,7 @@ import {
   Reader,
   UnknownCommand,
 } from './types/messages';
-import { Card } from 'react-native-ausweisapp2-wrapper';
+import { Card } from './types/auxiliary_types';
 
 export const BASIC_ERROR_MESSAGES = [
   AA2Messages.BadState,
